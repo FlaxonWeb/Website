@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <title>UUID Generator</title>
+    <style>
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            gap: 20px;
+        }
+        .uuid-display {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-top: 10px;
+            cursor: pointer;
+            text-decoration: none; /* إزالة الخط */
+        }
+        .uuid-display:hover {
+            color: #0056b3;
+        }
+        .copy-message {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .copy-message.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .main-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .main-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 10%, transparent 60%);
+            transform: rotate(0deg);
+            animation: stars 3s linear infinite;
+        }
+        .main-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+        @keyframes stars {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="main">
+        <div id="copy-message" class="copy-message">UUID copied to clipboard!</div>
+        <button onclick="generateUUID()" class="main-btn">Generate UUID</button>
+        <p id="uuid-display" class="uuid-display" style="display: none;" onclick="copyUUID()"></p>
+    </section>
+
+    <section class="cards contact" id="Support">
+        <h2 class="title">Support</h2>
+        <div class="content">
+            <div class="card">
+                <div class="icon">
+                    <i class="fab fa-telegram-plane"></i>
+                </div>
+                <div class="info">
+                    <h3>Telegram</h3>
+                    <a onclick="openTg()" class="main-btn">Click Here</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p class="footer-title">Copyrights @ <span>FlaxonTeam</span></p>
+        <div class="social-icons">
+            <a href="https://x.com/FlaxonA4520?t=1YM0G8gjzUdHqnhVS2laQA&s=09"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/minecraftwiki55/profilecard/?igsh=MWh3ZXZwN3prZXo3Zg=="><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@flaxon3ar?si=NS6cul5grjGF-Qzx"><i class="fab fa-youtube"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        function generateUUID() {
+            const uuid = crypto.randomUUID();
+            const uuidDisplay = document.getElementById('uuid-display');
+            uuidDisplay.textContent = uuid;
+            uuidDisplay.style.display = 'block';
+        }
+
+        function copyUUID() {
+            const uuidText = document.getElementById('uuid-display').textContent;
+            navigator.clipboard.writeText(uuidText).then(() => {
+                const copyMessage = document.getElementById('copy-message');
+                copyMessage.classList.add('show');
+                setTimeout(() => {
+                    copyMessage.classList.remove('show');
+                }, 3000);
+            }).catch(err => {
+                console.error('Failed to copy UUID:', err);
+            });
+        }
+
+        function openTg() {
+            window.location.href = "https://t.me/RIDA_CHANNEL";
+        }
+    </script>
+
+</body>
+  </html>
